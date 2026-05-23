@@ -40,7 +40,7 @@ import styles from "./LaunchWindow.module.css";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "../ui/button";
 import { RecordingControls } from "./RecordingControls";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SHOW_DEV_UPDATE_PREVIEW = import.meta.env.DEV;
 
@@ -54,6 +54,7 @@ export function LaunchWindow() {
 
 function LaunchWindowContent() {
 	const t = useScopedT("launch");
+	const [normalRecordMode, setNormalRecordMode] = useState(false);
 	const { openId, requestClose, requestOpen } = useLaunchPopoverCoordinator();
 
 	const {
@@ -329,6 +330,16 @@ function LaunchWindowContent() {
 				}
 			/>
 
+			<Button
+  variant="ghost"
+  size="icon"
+  iconSize="lg"
+  title={normalRecordMode ? "Normal Mode (No Zoom)" : "Smart Mode (With Zoom)"}
+  className={normalRecordMode ? styles.ibActive : ""}
+  onClick={() => setNormalRecordMode(!normalRecordMode)}
+>
+  <MonitorIcon size={18} />
+</Button>
 
 			<button
 				type="button"
